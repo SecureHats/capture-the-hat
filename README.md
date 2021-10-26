@@ -4,4 +4,4 @@
 
 Documentation and reference section
 
-**_WARNING! The code is for Proof of Concept only and should not be used in production without explict approval of the owner._**
+**_WARNING! All code in this repo is for Proof of Concept purposes only and should not be used in production environment or without explict approval of the owner._**
