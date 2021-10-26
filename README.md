@@ -1,12 +1,7 @@
-![logo](https://github.com/SecureHats/sentinel-playground/blob/main/media/securehats-banner.png)
-=========
-[![GitHub release](https://img.shields.io/github/release/SecureHats/Sentinel-playground.svg?style=flat-square)](https://github.com/SecureHats/Sentinel-playground/releases)
-[![Maintenance](https://img.shields.io/maintenance/yes/2021.svg?style=flat-square)]()
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+# SecureHats - Scripts and files
 
-# SecureHats Repo Template
+![logo](https://github.com/SecureHats/Sentinel-playground/blob/main/media/securehats-layers-200x.png)
 
-This SecureHats repository is used to organize project information and artifacts. 
+Documentation and reference section
 
-# Work to do
-- Default Access Permissions
+**_WARNING! The code is for Proof of Concept only and should not be used in production without explict approval of the owner._**
