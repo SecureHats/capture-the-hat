@@ -40,7 +40,7 @@ jobs:
                 }
 
                 ""
-                "# $($scenario)" | Out-file -FilePath (Join-Path -Path $scenario -ChildPath "README.md")
+                "# $($scenario)" | Out-file -FilePath (Join-Path -Path "scenarios\$($scenario)" -ChildPath "README.md")
                 "- [$($scenario)](https://$($env:GITHUB_REPO)/tree/main/documentation/$($scenario))" | Out-file -FilePath ("README.md") -Append
             }
       - name: Configure Github Settings
