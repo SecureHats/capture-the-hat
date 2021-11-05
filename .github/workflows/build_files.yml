@@ -41,3 +41,17 @@ jobs:
 
                 "- [$($scenario)](https://$($env:GITHUB_REPO)/tree/main/documentation/$($scenario))" | Out-file -FilePath ("README.md") -Append
             }
+      - name: Configure Github Settings
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: append to file
+        run: date >> .github/published.txt
+      - name: Check for changes
+        run: git status
+      - name: Stage changed files
+        run: git add .
+      - name: Commit changed files
+        run: git commit -m "Auto updating published.txt file"
+      - name: Push changes
+        run: git push
