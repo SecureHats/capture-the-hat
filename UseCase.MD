@@ -1,6 +1,10 @@
 # UseCase
 
 Tweet the link to GitHub that there has been data stolen #SecureHats
+>- add file content on https://0bin.net/ and set expiry to 1 day
+>- Preview https://0bin.net/paste/V3Qaoztd#BUyMa+RENCr-cPKqNTqlsvgSRY3KkamTfXEeUls0hPY
+![image](https://user-images.githubusercontent.com/40334679/141160160-e92234d0-b81c-4923-905b-4bdc090b2b1d.png)
+
 
 Hacker uploads a file to GitHub, there is a mail address assigned to the GitHub user. Use this mail address for the next step.
 
