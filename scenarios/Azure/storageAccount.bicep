@@ -31,5 +31,13 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-02-01' = {
   }
 }
 
+resource stgcontainers 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-09-01' = {
+  name: 'securehats2022cth'
+  parent: stg
+  properties: {
+    publicAccess: 'string'
+  }
+}
+
 output endpoint object = stg.properties.primaryEndpoints
 output id string = stg.id
