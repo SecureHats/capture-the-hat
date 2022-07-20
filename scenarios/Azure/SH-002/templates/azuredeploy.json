@@ -8,12 +8,10 @@
                 "description": "Specifies the name of the Function App."
             },
             "applicationId": {
-                "type": "string",
-                "defaultValue": "[newGuid()]"
+                "type": "string"
             },
             "applicationSecret": {
-                "type": "string",
-                "defaultValue": "[newGuid()]"
+                "type": "string"
             },
             "flag": {
                 "type": "string",
