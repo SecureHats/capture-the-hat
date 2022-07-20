@@ -6,19 +6,19 @@
             "type": "string",
             "metadata": {
                 "description": "Specifies the name of the Function App."
-            },
-            "applicationId": {
-                "type": "string",
-                "defaultValue": "[newGuid().guid]"
-            },
-            "applicationSecret": {
-                "type": "string",
-                "defaultValue": "[newGuid().guid]"
-            },
-            "flag": {
-                "type": "string",
-                "defaultValue": "{cth-PrivilegeEscalationFromFunction}"
             }
+        },
+        "applicationId": {
+            "type": "string",
+            "defaultValue": "[newGuid().guid]"
+        },
+        "applicationSecret": {
+            "type": "string",
+            "defaultValue": "[newGuid().guid]"
+        },
+        "flag": {
+            "type": "string",
+            "defaultValue": "{cth-PrivilegeEscalationFromFunction}"
         }
     },
     "variables": {
@@ -88,7 +88,7 @@
                         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
                     ],
                     "properties": {
-                        "value": "[parameters('ApplicationId')]",
+                        "value": "[parameters('applicationId')]",
                         "contentType": "string",
                         "attributes": {
                             "enabled": true
@@ -224,10 +224,8 @@
             "properties": {
                 "networkAcls": {
                     "bypass": "AzureServices",
-                    "virtualNetworkRules": [
-                    ],
-                    "ipRules": [
-                    ],
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
                     "defaultAction": "Allow"
                 },
                 "minimumTlsVersion": "TLS1_2",
@@ -261,8 +259,7 @@
             },
             "properties": {
                 "cors": {
-                    "corsRules": [
-                    ]
+                    "corsRules": []
                 },
                 "deleteRetentionPolicy": {
                     "enabled": false
@@ -282,8 +279,7 @@
             },
             "properties": {
                 "cors": {
-                    "corsRules": [
-                    ]
+                    "corsRules": []
                 }
             }
         },
@@ -364,7 +360,7 @@
             "type": "string",
             "value": "[variables('functionName')]"
         },
-         "storageAccountName": {
+        "storageAccountName": {
             "type": "string",
             "value": "[variables('storageAccountName')]"
         }
