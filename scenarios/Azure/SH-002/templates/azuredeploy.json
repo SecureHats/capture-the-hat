@@ -6,16 +6,6 @@
             "type": "string",
             "metadata": {
                 "description": "Specifies the name of the Function App."
-            },
-            "applicationId": {
-                "type": "string"
-            },
-            "applicationSecret": {
-                "type": "string"
-            },
-            "flag": {
-                "type": "string",
-                "defaultValue": "{cth-PrivilegeEscalationFromFunction}"
             }
         },
         "applicationId": {
