@@ -9,12 +9,10 @@
             }
         },
         "applicationId": {
-            "type": "string",
-            "defaultValue": "[newGuid().guid]"
+            "type": "string"
         },
         "applicationSecret": {
-            "type": "string",
-            "defaultValue": "[newGuid().guid]"
+            "type": "string"
         },
         "flag": {
             "type": "string",
