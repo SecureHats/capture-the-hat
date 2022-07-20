@@ -6,6 +6,18 @@
             "type": "string",
             "metadata": {
                 "description": "Specifies the name of the Function App."
+            },
+            "applicationId": {
+                "type": "string",
+                "defaultValue": "[newGuid().guid]"
+            },
+            "applicationSecret": {
+                "type": "string",
+                "defaultValue": "[newGuid().guid]"
+            },
+            "flag": {
+                "type": "string",
+                "defaultValue": "{cth-PrivilegeEscalationFromFunction}"
             }
         }
     },
@@ -76,7 +88,7 @@
                         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
                     ],
                     "properties": {
-                        "value": "[newGuid().guid]",
+                        "value": "[parameters('ApplicationId')]",
                         "contentType": "string",
                         "attributes": {
                             "enabled": true
@@ -92,7 +104,23 @@
                         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
                     ],
                     "properties": {
-                        "value": "[newGuid().guid]",
+                        "value": "[parameters('applicationSecret')]",
+                        "contentType": "string",
+                        "attributes": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "type": "secrets",
+                    "apiVersion": "2016-10-01",
+                    "name": "flag",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "properties": {
+                        "value": "[parameters('flag')]",
                         "contentType": "string",
                         "attributes": {
                             "enabled": true
