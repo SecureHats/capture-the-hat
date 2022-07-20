@@ -22,8 +22,8 @@
         }
     },
     "variables": {
-        "functionName": "[substring(concat(tolower(parameters('functionName')), uniqueString(resourceGroup().id)), 0, 20)]",
-        "storageAccountName": "[replace(variables('functionName'),'-', '')]",
+        "functionName": "[tolower(parameters('functionName'))]",
+        "storageAccountName": "[variables('functionName')]",
         "keyVaultName": "[variables('functionName')]",
         "storageContainerName": "config",
         "storageSuffix": "[environment().suffixes.storage]",
