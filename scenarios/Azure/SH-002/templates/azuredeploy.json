@@ -178,7 +178,7 @@
                         "KeyVault": "[variables('keyVaultName')]",
                         "SecretPrefix": "adsync",
                         "HybridEndpoint": "loc-syncserver",
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/SecureHats/capture-the-hat/raw/main/function.zip"
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/SecureHats/capture-the-hat/raw/main/scenarios/Azure/SH-002/function.zip"
                     }
                 }
             ]
