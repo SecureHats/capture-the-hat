@@ -35,7 +35,7 @@
     },
     "variables": {
         "functionName": "[tolower(parameters('functionName'))]",
-        "storageAccountName": "[variables('functionName')]",
+        "storageAccountName": "[replace(variables('functionName'), '-', '')]",
         "keyVaultName": "[variables('functionName')]",
         "storageContainerName": "config",
         "storageSuffix": "[environment().suffixes.storage]",
