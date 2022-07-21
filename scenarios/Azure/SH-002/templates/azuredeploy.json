@@ -13,10 +13,6 @@
         },
         "applicationSecret": {
             "type": "string"
-        },
-        "flag": {
-            "type": "string",
-            "defaultValue": "{cth-FunctionAppPrivileges}"
         }
     },
     "variables": {
@@ -108,22 +104,6 @@
                             "enabled": true
                         }
                     }
-                },
-                {
-                    "type": "secrets",
-                    "apiVersion": "2016-10-01",
-                    "name": "flag",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "properties": {
-                        "value": "[parameters('flag')]",
-                        "contentType": "string",
-                        "attributes": {
-                            "enabled": true
-                        }
-                    }
                 }
             ]
         },
@@ -181,33 +161,31 @@
                 "siteConfig": {
                     "powerShellVersion": "~7"
                 }
-            },
-            "resources": [
-                {
-                    "apiVersion": "2018-11-01",
-                    "type": "config",
-                    "name": "appsettings",
-                    "dependsOn": [
-                        "[concat('Microsoft.Web/sites/', variables('functionName'))]",
-                        "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
-                        "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), 'AzureWebJobsStorage')]",
-                        "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName')), 'Microsoft.Authorization/roleAssignments/', variables('uniqueRoleGuidKeyVaultSecretReader'))]"
-                    ],
-                    "properties": {
-                        "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('Microsoft.insights/components', variables('functionName')), '2015-05-01').InstrumentationKey]",
-                        "APPLICATIONINSIGHTS_CONNECTION_STRING": "[reference(resourceId('Microsoft.insights/components', variables('functionName')), '2015-05-01').ConnectionString]",
-                        "AzureWebJobsStorage": "[NF.secretName(variables('keyVaultName'), 'AzureWebJobsStorage')]",
-                        "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[NF.secretName(variables('keyVaultName'), 'AzureWebJobsStorage')]",
-                        "WEBSITE_CONTENTSHARE": "[toLower(variables('functionName'))]",
-                        "FUNCTIONS_EXTENSION_VERSION": "~3",
-                        "FUNCTIONS_WORKER_RUNTIME": "powershell",
-                        "KeyVault": "[variables('keyVaultName')]",
-                        "SecretPrefix": "adsync",
-                        "HybridEndpoint": "loc-syncserver",
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/SecureHats/capture-the-hat/raw/main/scenarios/Azure/SH-002/function.zip"
-                    }
-                }
-            ]
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "concat(variables('functionName'), '/appsettings')])",
+            "dependsOn": [
+                "[concat('Microsoft.Web/sites/', variables('functionName'))]",
+                "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
+                "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), 'AzureWebJobsStorage')]",
+                "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName')), 'Microsoft.Authorization/roleAssignments/', variables('uniqueRoleGuidKeyVaultSecretReader'))]"
+            ],
+            "properties": {
+                "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('Microsoft.insights/components', variables('functionName')), '2015-05-01').InstrumentationKey]",
+                "APPLICATIONINSIGHTS_CONNECTION_STRING": "[reference(resourceId('Microsoft.insights/components', variables('functionName')), '2015-05-01').ConnectionString]",
+                "AzureWebJobsStorage": "[NF.secretName(variables('keyVaultName'), 'AzureWebJobsStorage')]",
+                "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[NF.secretName(variables('keyVaultName'), 'AzureWebJobsStorage')]",
+                "WEBSITE_CONTENTSHARE": "[toLower(variables('functionName'))]",
+                "FUNCTIONS_EXTENSION_VERSION": "~3",
+                "FUNCTIONS_WORKER_RUNTIME": "powershell",
+                "KeyVault": "[variables('keyVaultName')]",
+                "SecretPrefix": "adsync",
+                "HybridEndpoint": "loc-syncserver",
+                "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/SecureHats/capture-the-hat/raw/main/scenarios/Azure/SH-002/function.zip"
+            }
         },
         {
             "type": "Microsoft.Storage/storageAccounts",
