@@ -16,7 +16,7 @@
         },
         "flag": {
             "type": "string",
-            "defaultValue": "{cth-PrivilegeEscalationFromFunction}"
+            "defaultValue": "{cth-FunctionAppPrivileges}"
         }
     },
     "variables": {
@@ -191,7 +191,7 @@
                         "[concat('Microsoft.Web/sites/', variables('functionName'))]",
                         "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
                         "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), 'AzureWebJobsStorage')]",
-                        "[variables('uniqueRoleGuidKeyVaultSecretReader')]"
+                        "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName')), 'Microsoft.Authorization/roleAssignments/', variables('uniqueRoleGuidKeyVaultSecretReader'))]"
                     ],
                     "properties": {
                         "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('Microsoft.insights/components', variables('functionName')), '2015-05-01').InstrumentationKey]",
