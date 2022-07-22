@@ -19,6 +19,7 @@
         "functionName": "[tolower(parameters('functionName'))]",
         "storageAccountName": "[replace(variables('functionName'), '-', '')]",
         "keyVaultName": "[variables('functionName')]",
+        "storageContainerName": "config",
         "storageSuffix": "[environment().suffixes.storage]",
         "keyVaultSecretReader": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '4633458b-17de-408a-b874-0445c86b69e6')]",
         "uniqueRoleGuidKeyVaultSecretReader": "[guid(resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName')))]"
@@ -169,7 +170,6 @@
             "kind": "string",
             "dependsOn": [
                 "[concat('Microsoft.Web/sites/', variables('functionName'))]",
-                "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
                 "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), 'AzureWebJobsStorage')]",
                 "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName')), 'Microsoft.Authorization/roleAssignments/', variables('uniqueRoleGuidKeyVaultSecretReader'))]"
@@ -222,94 +222,92 @@
                     "keySource": "Microsoft.Storage"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default/azure-webjobs-hosts')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default/azure-webjobs-secrets')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), concat('/default/', variables('storageContainerName')))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default/', tolower(variables('storageAccountName')))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/fileServices', variables('storageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "shareQuota": 5120
+            }
         }
-        // ,
-        // {
-        //     "type": "Microsoft.Storage/storageAccounts/blobServices",
-        //     "apiVersion": "2019-06-01",
-        //     "name": "[concat(variables('storageAccountName'), '/default')]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-        //     ],
-        //     "sku": {
-        //         "name": "Standard_LRS",
-        //         "tier": "Standard"
-        //     },
-        //     "properties": {
-        //         "cors": {
-        //             "corsRules": []
-        //         },
-        //         "deleteRetentionPolicy": {
-        //             "enabled": false
-        //         }
-        //     }
-        // },
-        // {
-        //     "type": "Microsoft.Storage/storageAccounts/fileServices",
-        //     "apiVersion": "2019-06-01",
-        //     "name": "[concat(variables('storageAccountName'), '/default')]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-        //     ],
-        //     "sku": {
-        //         "name": "Standard_LRS",
-        //         "tier": "Standard"
-        //     },
-        //     "properties": {
-        //         "cors": {
-        //             "corsRules": []
-        //         }
-        //     }
-        // }
-        // // ,
-        // {
-        //     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-        //     "apiVersion": "2019-06-01",
-        //     "name": "[concat(variables('storageAccountName'), '/default/azure-webjobs-hosts')]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-        //         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-        //     ],
-        //     "properties": {
-        //         "publicAccess": "None"
-        //     }
-        // },
-        // {
-        //     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-        //     "apiVersion": "2019-06-01",
-        //     "name": "[concat(variables('storageAccountName'), '/default/azure-webjobs-secrets')]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-        //         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-        //     ],
-        //     "properties": {
-        //         "publicAccess": "None"
-        //     }
-        // },
-        // {
-        //     "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-        //     "apiVersion": "2019-06-01",
-        //     "name": "[concat(variables('storageAccountName'), concat('/default/', variables('storageContainerName')))]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-        //         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-        //     ],
-        //     "properties": {
-        //         "publicAccess": "None"
-        //     }
-        // },
-        // {
-        //     "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
-        //     "apiVersion": "2019-06-01",
-        //     "name": "[concat(variables('storageAccountName'), '/default/', tolower(variables('storageAccountName')))]",
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Storage/storageAccounts/fileServices', variables('storageAccountName'), 'default')]",
-        //         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-        //     ],
-        //     "properties": {
-        //         "shareQuota": 5120
-        //     }
-        // }
     ],
     "functions": [
         {
