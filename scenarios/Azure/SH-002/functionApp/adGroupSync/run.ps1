@@ -1,5 +1,5 @@
 # Input bindings are passed in via param block.
-param($Request, $TriggerMetadata, $eventHubMessages)
+param($Request, $TriggerMetadata)
 
 # Main
 if ($env:MSI_SECRET -and (Get-Module -ListAvailable Az.Accounts)) {
@@ -8,9 +8,9 @@ if ($env:MSI_SECRET -and (Get-Module -ListAvailable Az.Accounts)) {
 
 $body = Invoke-Main
 
-switch -Wildcard ($eventHubMessages.records.operationName) {
+switch -Wildcard ($Request.records.operationName) {
     "Add member to role completed (PIM activation)" {
-        $properties = $eventHubMessages.records.properties `
+        $properties = $Request.records.properties `
             | Where-Object category -eq "GroupManagement" `
             | Where-Object activityDisplayName -like "Add member to role completed (PIM activation)"
 
@@ -22,7 +22,7 @@ switch -Wildcard ($eventHubMessages.records.operationName) {
         }
     }
     "Remove member from role completed (PIM deactivate)" {
-        $properties = $eventHubMessages.records.properties `
+        $properties = $Request.records.properties `
             | Where-Object category -eq "GroupManagement" `
             | Where-Object activityDisplayName -like "Remove member from role requested (PIM deactivate)"
 
@@ -34,7 +34,7 @@ switch -Wildcard ($eventHubMessages.records.operationName) {
         }
     }
     "Remove member from role (PIM activation expired)" {
-        $properties = $eventHubMessages.records.properties `
+        $properties = $Request.records.properties `
             | Where-Object category -eq "GroupManagement" `
             | Where-Object activityDisplayName -like "Remove member from role (PIM activation expired)"
 
