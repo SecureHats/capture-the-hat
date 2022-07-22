@@ -299,7 +299,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
             "apiVersion": "2019-06-01",
-            "name": "[concat(variables('storageAccountName'), '/default/', tolower(variables('storageAccountName')))]",
+            "name": "[concat(variables('storageAccountName'), '/default/', tolower(variables('functionName')))]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/fileServices', variables('storageAccountName'), 'default')]",
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
