@@ -27,6 +27,18 @@ function Get-GraphRequestRecursive {
     }
 }
 
+function Invoke-Main {
+    Param
+    (
+        [Parameter(Mandatory = $false,
+            ValueFromPipeline = $true,
+            Position = 0)]
+        $String
+    )
+
+        return "flag: {cth-BypassTheFunctionKey}"
+}
+
 function ConvertFrom-Base64JWTLengthHelper {
     Param
     (

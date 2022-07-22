@@ -1,7 +1,12 @@
 # Input bindings are passed in via param block.
-param($Request, $TriggerMetadata)
+param($Request, $TriggerMetadata, $eventHubMessages)
 
-Import-Module ".\Modules\HelperFunctions.psm1" -Force -Verbose:$false
+# Main
+if ($env:MSI_SECRET -and (Get-Module -ListAvailable Az.Accounts)) {
+    Connect-AzAccount -Identity
+}
+
+$body = Invoke-Main
 
 switch -Wildcard ($eventHubMessages.records.operationName) {
     "Add member to role completed (PIM activation)" {
@@ -44,3 +49,8 @@ switch -Wildcard ($eventHubMessages.records.operationName) {
         # "Nothing to process"
     }
 }
+
+Push-OutputBinding -Name Response -Clobber -Value ([HttpResponseContext]@{
+    StatusCode = [HttpStatusCode]::OK
+    Body       = $body
+})

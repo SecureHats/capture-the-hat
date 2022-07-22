@@ -3,5 +3,6 @@
 #
 @{
     # For the latest supported version, go to 'https://www.powershellgallery.com/packages/Az'.
-    'Az' = '7.*'
+    'Az.Accounts' = '2.*'
+    'Az.KeyVault' = '4.*'
 }
