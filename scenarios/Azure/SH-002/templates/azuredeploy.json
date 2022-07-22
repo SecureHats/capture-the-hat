@@ -157,7 +157,7 @@
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('functionName'))]",
                 "httpsOnly": true,
                 "clientAffinityEnabled": true,
-                "alwaysOn": false,
+                "alwaysOn": true,
                 "siteConfig": {
                     "powerShellVersion": "~7"
                 }
