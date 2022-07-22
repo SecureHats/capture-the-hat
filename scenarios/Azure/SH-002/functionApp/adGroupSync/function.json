@@ -1,15 +1,6 @@
 {
   "bindings": [
     {
-      "type": "eventHubTrigger",
-      "name": "eventHubMessages",
-      "direction": "in",
-      "eventHubName": "io-p-identitysync",
-      "connection": "eventHubConnection",
-      "cardinality": "many",
-      "consumerGroup": "$Default"
-    },
-    {
       "authLevel": "function",
       "type": "httpTrigger",
       "direction": "in",

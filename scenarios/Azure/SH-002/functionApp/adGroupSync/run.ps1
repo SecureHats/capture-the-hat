@@ -1,7 +1,5 @@
-param(
-    $eventHubMessages,
-    $TriggerMetadata
-)
+# Input bindings are passed in via param block.
+param($Request, $TriggerMetadata)
 
 Import-Module ".\Modules\HelperFunctions.psm1" -Force -Verbose:$false
 
