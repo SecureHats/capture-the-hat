@@ -169,6 +169,7 @@
             "kind": "string",
             "dependsOn": [
                 "[concat('Microsoft.Web/sites/', variables('functionName'))]",
+                "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
                 "[resourceId('Microsoft.KeyVault/vaults/secrets', variables('keyVaultName'), 'AzureWebJobsStorage')]",
                 "[extensionResourceId(resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName')), 'Microsoft.Authorization/roleAssignments/', variables('uniqueRoleGuidKeyVaultSecretReader'))]"
