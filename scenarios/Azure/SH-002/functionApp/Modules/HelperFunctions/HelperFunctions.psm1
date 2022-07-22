@@ -1,4 +1,4 @@
-function Get-GraphRequestRecursive {
+Function Get-GraphRequestRecursive {
     [CmdletBinding()]
     [Alias()]
     Param
@@ -27,7 +27,7 @@ function Get-GraphRequestRecursive {
     }
 }
 
-function Invoke-Main {
+Function Invoke-Main {
     Param
     (
         [Parameter(Mandatory = $false,
@@ -39,7 +39,7 @@ function Invoke-Main {
         return "flag: {cth-BypassTheFunctionKey}"
 }
 
-function ConvertFrom-Base64JWTLengthHelper {
+Function ConvertFrom-Base64JWTLengthHelper {
     Param
     (
         [Parameter(Mandatory = $true,
@@ -57,7 +57,7 @@ function ConvertFrom-Base64JWTLengthHelper {
     }
 }
 
-function ConvertFrom-Base64JWT {
+Function ConvertFrom-Base64JWT {
     [CmdletBinding()]
     Param
     (
@@ -204,7 +204,7 @@ Function Update-LocalMembership {
 .EXAMPLE
    Get-MSIMSGraphAccessToken
 #>
-function Get-MSIMSGraphAccessToken {
+Function Get-MSIMSGraphAccessToken {
     [CmdletBinding()]
     [OutputType([string])]
     Param()
@@ -231,7 +231,7 @@ function Get-MSIMSGraphAccessToken {
     }
 }
 
-function Get-GraphPermissions {
+Function Get-GraphPermissions {
     [CmdletBinding()]
     [OutputType([string])]
 
@@ -258,5 +258,3 @@ function Get-GraphPermissions {
         Write-Verbose " - roles:           $($jwt.payload.roles)"
     }
 }
-
-Export-ModuleMember -Function "Get-GraphRequestRecursive", "ConvertFrom-Base64JWT", "Get-MSIMSGraphAccessToken", "Update-LocalMembership", "Get-GraphPermissions"
