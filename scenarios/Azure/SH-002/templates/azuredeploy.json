@@ -165,9 +165,9 @@
         {
             "type": "Microsoft.Web/sites/functions/keys",
             "apiVersion": "2021-03-01",
-            "name": "[concat(variables('functionName'), '/default/', 'default')]",
+            "name": "[concat(variables('functionName'), '/default/', 'myKey')]",
             "properties": {
-                "name": "default",
+                "name": "myKey",
                 "value": "D7atABSDW0F2Fj8C-9jljSumOs1IwDxzsGrdWiUgD3hTAzFuxPe5gg=="
             },
             "dependsOn": [
