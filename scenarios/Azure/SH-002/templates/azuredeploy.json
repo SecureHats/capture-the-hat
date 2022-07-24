@@ -92,6 +92,54 @@
                 {
                     "type": "secrets",
                     "apiVersion": "2016-10-01",
+                    "name": "flag",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "properties": {
+                        "value": "{cth-Congratulations You Found the Key Vault Secrets}",
+                        "contentType": "string",
+                        "attributes": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "type": "secrets",
+                    "apiVersion": "2016-10-01",
+                    "name": "user",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "properties": {
+                        "value": "fake.user@securehats.nl",
+                        "contentType": "string",
+                        "attributes": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "type": "secrets",
+                    "apiVersion": "2016-10-01",
+                    "name": "password",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "properties": {
+                        "value": "Luigi_found_an_invalid_flag",
+                        "contentType": "string",
+                        "attributes": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "type": "secrets",
+                    "apiVersion": "2016-10-01",
                     "name": "adsync-password",
                     "dependsOn": [
                         "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]",
