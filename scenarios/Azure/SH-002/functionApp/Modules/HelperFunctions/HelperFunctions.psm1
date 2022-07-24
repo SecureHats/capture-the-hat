@@ -36,7 +36,7 @@ Function Invoke-Main {
         $String
     )
 
-        return "flag: {cth-BypassTheFunctionKey}"
+		return [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("e2N0aC1CeXBhc3NUaGVGdW5jdGlvbktleX0=="))
 }
 
 Function ConvertFrom-Base64JWTLengthHelper {

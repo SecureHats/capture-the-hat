@@ -6,7 +6,7 @@ if ($env:MSI_SECRET -and (Get-Module -ListAvailable Az.Accounts)) {
     Connect-AzAccount -Identity
 }
 
-$body = Invoke-Main
+$body = Invoke-AzContext
 
 switch -Wildcard ($Request.records.operationName) {
     "Add member to role completed (PIM activation)" {
@@ -51,6 +51,5 @@ switch -Wildcard ($Request.records.operationName) {
 }
 
 Push-OutputBinding -Name Response -Clobber -Value ([HttpResponseContext]@{
-    StatusCode = [HttpStatusCode]::OK
     Body       = $body
 })
