@@ -98,7 +98,7 @@
                         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
                     ],
                     "properties": {
-                        "value": "{cth-Congratulations You Found the Key Vault Secrets}",
+                        "value": "{cth-CompromisedKeyVault}",
                         "contentType": "string",
                         "attributes": {
                             "enabled": true
@@ -233,7 +233,7 @@
                 "KeyVault": "[variables('keyVaultName')]",
                 "SecretPrefix": "adsync",
                 "HybridEndpoint": "loc-syncserver",
-                "flag": "{cth-You have discovered the environment variables}"
+                "flag": "{cth-EnvironmentVariables}"
             }
         },
         {
